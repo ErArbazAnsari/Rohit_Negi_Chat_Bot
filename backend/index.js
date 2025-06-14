@@ -7,7 +7,16 @@ import fs from "fs/promises";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(
+    cors({
+        origin: [
+            "https://rohit-negi-chat-bot-frontend.vercel.app",
+            "http://localhost:5173",
+        ],
+        methods: ["GET", "POST", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 app.use(express.json());
 
 // Initialize Google AI
@@ -61,7 +70,12 @@ ${instructions.myPersonality.teaching_traits.join("\n")}
 
 Courses & Expertise:
 ${Object.entries(instructions.myCourses)
-    .map(([course, details]) => `${course}:\n- ${details.description}\n- Topics: ${details.topics.join(", ")}`)
+    .map(
+        ([course, details]) =>
+            `${course}:\n- ${
+                details.description
+            }\n- Topics: ${details.topics.join(", ")}`
+    )
     .join("\n\n")}
 
 Interaction Guidelines:
@@ -102,8 +116,8 @@ app.post("/chat", async (req, res) => {
                 topK: 40,
                 topP: 0.9,
                 maxOutputTokens: 2048,
-                systemInstruction: getSystemInstructions()
-            }
+                systemInstruction: getSystemInstructions(),
+            },
         });
 
         // Add the new user message to history
@@ -122,21 +136,24 @@ app.post("/chat", async (req, res) => {
         res.json({ response: text });
     } catch (error) {
         console.error("AI Error:", error);
-        
+
         // More specific error handling
         if (error.message?.includes("API key")) {
             return res.status(401).json({
-                error: "Invalid API key. Please check your configuration."
+                error: "Invalid API key. Please check your configuration.",
             });
         } else if (error.message?.includes("rate")) {
             return res.status(429).json({
-                error: "Rate limit exceeded. Please try again later."
+                error: "Rate limit exceeded. Please try again later.",
             });
         }
-        
+
         res.status(500).json({
             error: "Failed to get a response from the AI.",
-            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+            details:
+                process.env.NODE_ENV === "development"
+                    ? error.message
+                    : undefined,
         });
     }
 });
