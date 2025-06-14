@@ -1,0 +1,25 @@
+{
+    "name": "talkwithrohit",
+    "version": "1.0.0",
+    "description": "Hi!, I'm rohit neggi",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "keywords": [
+        "rohitneggi",
+        "rohit_neggi",
+        "rohit_negi"
+    ],
+    "author": "Arbaz Ansari",
+    "license": "ISC",
+    "dependencies": {
+        "@google/genai": "^1.5.1",
+        "@google/generative-ai": "^0.24.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "express-rate-limit": "^7.5.0"
+    }
+}

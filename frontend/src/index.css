@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #10a37f;
+  --primary-hover: #0d8c6d;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100;
+}
+
+.chat-container {
+  @apply flex flex-col h-screen bg-white dark:bg-gray-900;
+}
+
+.header {
+  @apply border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800;
+}
+
+.header-content {
+  @apply max-w-3xl mx-auto px-4 py-3 flex items-center justify-between;
+}
+
+.chat-messages {
+  @apply flex-1 overflow-y-auto px-4 py-6 space-y-6;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+}
+
+.message {
+  @apply flex items-start gap-4 max-w-3xl mx-auto;
+}
+
+.message.user {
+  @apply flex-row-reverse;
+}
+
+.message-avatar {
+  @apply w-8 h-8 rounded-sm;
+}
+
+.message-content {
+  @apply flex-1 space-y-2 text-sm text-gray-900 dark:text-gray-100;
+}
+
+.message.user .message-content {
+  @apply text-right;
+}
+
+.message-content p {
+  @apply leading-relaxed;
+}
+
+.message-content pre {
+  @apply my-4 rounded-lg overflow-hidden;
+}
+
+.message-content code {
+  @apply font-mono text-sm;
+}
+
+.message-content p code {
+  @apply px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+}
+
+.code-block-header {
+  @apply flex items-center justify-between px-4 py-2 bg-gray-800 text-gray-200 text-sm font-medium;
+}
+
+.code-block-title {
+  @apply text-gray-400;
+}
+
+.code-block-actions {
+  @apply flex items-center space-x-2;
+}
+
+.code-block-button {
+  @apply p-1 rounded hover:bg-gray-700 transition-colors duration-200;
+}
+
+.chat-input-container {
+  @apply border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800;
+}
+
+.chat-input-wrapper {
+  @apply max-w-3xl mx-auto px-4 py-4;
+}
+
+.chat-input {
+  @apply w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+}
+
+.send-button {
+  @apply absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg text-gray-500 hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200;
+}
+
+.typing-indicator {
+  @apply flex items-center space-x-2 px-4 py-2;
+}
+
+.typing-dot {
+  @apply w-2 h-2 rounded-full bg-gray-400 dark:bg-gray-500;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-4px);
+  }
+}
+
+/* Markdown Styles */
+.message-content h1 {
+  @apply text-2xl font-bold mb-4;
+}
+
+.message-content h2 {
+  @apply text-xl font-bold mb-3;
+}
+
+.message-content h3 {
+  @apply text-lg font-bold mb-2;
+}
+
+.message-content ul {
+  @apply list-disc list-inside mb-4;
+}
+
+.message-content ol {
+  @apply list-decimal list-inside mb-4;
+}
+
+.message-content li {
+  @apply mb-1;
+}
+
+.message-content blockquote {
+  @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-2 my-4 italic;
+}
+
+.message-content a {
+  @apply text-primary-500 hover:underline;
+}
+
+/* Dark mode overrides */
+.dark .chat-input:focus {
+  @apply border-gray-600;
+}
+
+.dark .send-button {
+  @apply text-gray-400 hover:text-primary-500;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .message {
+    @apply px-2;
+  }
+
+  .chat-input-wrapper {
+    @apply px-2;
+  }
+
+  .header-content {
+    @apply px-2;
+  }
+}
